@@ -1,0 +1,7 @@
+NOTICE
+This distribution is based on "CoACD for Unity".
+Original work: (c) <Xinyue Wei/UCSD, 2025>  — Apache-2.0.
+               https://github.com/SarahWeiii/CoACD
+               
+Modifications: (c) 2025 <kjw>.
+Changes: added 'Calculate Colliders from FBXfile', editor bug fix
