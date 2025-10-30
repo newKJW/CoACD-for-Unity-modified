@@ -58,3 +58,9 @@ to get high quality convex meshes, i recommend you increase 1:'preprocess resolu
 however, you may not be satisfied with the output.
 
 if you are, consider editing the mesh(FBX file) using third-party modeling program(s) to run with 'off' mode.
+
+'Calculate Colliders from FBXfile' calculates all mesh datas in single FBX file. therefore,
+
+if the FBX file you editing is difficult to merge loose concave mesh parts into a single concave mesh,
+
+You can try this function by creating each loose part with its own mesh data.
