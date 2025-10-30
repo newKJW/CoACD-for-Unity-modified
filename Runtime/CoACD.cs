@@ -249,6 +249,7 @@ public unsafe class CoACD : MonoBehaviour
 		} else { _colliderData.UpdateAsset(parameters, decomposedMeshes.ToArray(), originalMeshes.ToArray()); }
 		AssetDatabase.SaveAssets();
 		ValidateColliders(baseTransform);
+		EditorUtility.SetDirty(gameObject);
 		EditorUtility.ClearProgressBar();
 		EditorGUIUtility.PingObject(_colliderData);
 	}
@@ -345,6 +346,7 @@ public unsafe class CoACD : MonoBehaviour
 		} else { _colliderData.UpdateAsset(parameters, decomposedMeshes.ToArray(), originalMeshes.ToArray()); }
 		AssetDatabase.SaveAssets();
 		ValidateColliders(baseTransform);
+		EditorUtility.SetDirty(gameObject);
 		EditorUtility.ClearProgressBar();
 		EditorGUIUtility.PingObject(_colliderData);
 	}
@@ -415,14 +417,65 @@ public unsafe class CoACD : MonoBehaviour
 		} else { _colliderData.UpdateAsset(parameters, decomposedMeshes.ToArray(), originalMeshes.ToArray()); }
 		AssetDatabase.SaveAssets();
 		ValidateColliders(baseTransform);
+		EditorUtility.SetDirty(gameObject);
 		EditorUtility.ClearProgressBar();
 		EditorGUIUtility.PingObject(_colliderData);
+	}
+
+	
+#if SAINTSFIELD_SAINTS_EDITOR_APPLY
+	[Button]
+#else
+[ContextMenu("Remove Component And Colliders(in list)")]
+#endif
+	void RemoveComponentAndColliders()
+	{
+		if (_colliders.Count > 0)
+        {
+            foreach (var c in _colliders)
+            {
+                if (c)
+                {
+                    if (Application.isPlaying) { Destroy(c); }
+					else { DestroyImmediate(c, true); }
+                }
+            }
+        }
+		
+		EditorUtility.SetDirty(gameObject);
+
+		if (Application.isPlaying) { Destroy(this); }
+		else { DestroyImmediate(this, true); }
+	}
+
+
+#if SAINTSFIELD_SAINTS_EDITOR_APPLY
+	[Button]
+#else
+[ContextMenu("Remove Colliders(in list)")]
+#endif
+	void RemoveCollidersInList()
+	{
+		if (_colliders.Count > 0)
+        {
+            foreach (var c in _colliders)
+            {
+                if (c)
+                {
+                    if (Application.isPlaying) { Destroy(c); }
+					else { DestroyImmediate(c, true); }
+                }
+            }
+        }
+        _colliders.Clear();
+		_colliderData = null;
+		EditorUtility.SetDirty(gameObject);
 	}
 
 #if SAINTSFIELD_SAINTS_EDITOR_APPLY
 	[Button]
 #else
-    [ContextMenu("Remove all MeshColliders(including colliders not in the member list 'Colliders'")]
+    [ContextMenu("Remove *ALL* MeshColliders")]
 #endif
 	void RemoveMeshColliders()
     {
@@ -431,11 +484,12 @@ public unsafe class CoACD : MonoBehaviour
         Debug.Log("remove " + colliders.Count + " colliders");
         for (int i = colliders.Count - 1; i >= 0; i--)
         {
-            DestroyImmediate(colliders[i]);
+            if (Application.isPlaying) { Destroy(colliders[i]); }
+			else { DestroyImmediate(colliders[i], true); }
         }
-#if UNITY_EDITOR
+		_colliders.Clear();
+		_colliderData = null;
         EditorUtility.SetDirty(gameObject);
-#endif
     }
 
     Mesh ExtractSubmesh(Mesh mesh, int submesh)
@@ -494,32 +548,9 @@ public unsafe class CoACD : MonoBehaviour
 #endif
 
     void OnDestroy()
-	{
-        if (_colliders.Count > 0)
-        {
-            foreach (var c in _colliders)
-            {
-                if (c)
-                {
-                    if (Application.isPlaying) { Destroy(c); }
-#if UNITY_EDITOR
-					else
-					{
-					EditorApplication.delayCall += () =>
-																				{
-																					if (c && !Application.isPlaying) { DestroyImmediate(c); }
-																				};
-					}
-#endif
-                }
-            }
-        }
-        _colliders.Clear();
-		
-#if UNITY_EDITOR
-		EditorUtility.SetDirty(gameObject);
-#endif
-	}
+    {
+		// does nothing
+    }
 }
 
 
