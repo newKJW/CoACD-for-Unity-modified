@@ -19,7 +19,7 @@ then run 'Calculate Colliders from FBXfile'.
 
 .
 
-function 'Remove Componenet And Colliders(in list)', 'Remove Colliders(in list)', 'Remove *ALL* Colliders':
+function 'Remove Componenet And Colliders(in list)', 'Remove Colliders(in list)', 'Remove *ALL* MeshColliders':
 
 basically, the component doesn't remove the colliders it created when the component itself is removed.
 
@@ -82,3 +82,4 @@ TIP 3: if you are generating colliders for a prefab, use prefab editing mode.
 double-click your prefab in the Project.
 
 the target object you want to generate colliders in prefab(including itself) should be selected in the Hierachy, not Project. no more explanation.
+
