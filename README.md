@@ -7,6 +7,7 @@ Please refer to the original author's GitHub for usage instructions.
 
 if you read already, you can understand what i'm saying below.
 
+git URL for Unity Package Manager: https://github.com/newKJW/CoACD-for-Unity-modified.git
 .
 
 How to use function 'Calculate Colliders from FBXfile':
@@ -62,5 +63,6 @@ if you are, consider editing the mesh(FBX file) using third-party modeling progr
 'Calculate Colliders from FBXfile' calculates all mesh datas in single FBX file. therefore,
 
 if the FBX file you editing is difficult to merge loose concave mesh parts into a single concave mesh,
+
 
 You can try this function by creating each loose part with its own mesh data.
