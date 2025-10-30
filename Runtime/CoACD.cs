@@ -548,9 +548,14 @@ public unsafe class CoACD : MonoBehaviour
 #endif
 
     void OnDestroy()
-    {
-		// does nothing
-    }
+	{
+    	foreach (var mc in _colliders)
+    	{
+			if (mc != null)
+				mc.hideFlags = HideFlags.None;
+    	}
+    	EditorUtility.SetDirty(gameObject);
+	}
 }
 
 
@@ -571,3 +576,4 @@ public static class PrefabPathUtil
         return null;
     }
 }
+
