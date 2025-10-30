@@ -19,9 +19,11 @@ then run 'Calculate Colliders from FBXfile'.
 
 .
 
-function 'Remove all MeshColliders': you can use this function if something went wrong.
+function 'Remove Componenet And Colliders(in list)', 'Remove Colliders(in list)', 'Remove *ALL* Colliders':
 
-basically, when the CoACD script is removed, the colliders it created are also removed.
+basically, the component doesn't remove the colliders it created when the component itself is removed.
+
+you can use these functions to remove them.
 
 meanwhile, created convex meshes used to create colliders are not automatically deleted from the Project.
 
@@ -29,7 +31,7 @@ you can delete them without worry.
 
 .
 
-TIPS: 'preprocess mode' has three modes: auto, on, off.
+TIP 1: 'preprocess mode' has three modes: auto, on, off.
 
 'auto' decides whether do preprocess by its own algorithm. (in my opinion, not recommended)
 
@@ -65,6 +67,18 @@ if you are, consider editing the mesh(FBX file) using third-party modeling progr
 
 if the FBX file you editing is difficult to merge loose concave mesh parts into a single concave mesh,
 
-
 You can try this function by creating each loose part with its own mesh data.
 
+.
+
+TIP 2: if you are using unity Probuilder, make the first MeshCollider component exists for Probuilder's auto collider generator.
+
+Probuilder replaces the sharedmesh of first meshcollider component to its mesh automatically - just leave it. all you have to do is uncheck the first meshcollider.
+
+.
+
+TIP 3: if you are generating colliders for a prefab, use prefab editing mode.
+
+double-click your prefab in the Project.
+
+the target object you want to generate colliders in prefab(including itself) should be selected in the Hierachy, not Project. no more explanation.
